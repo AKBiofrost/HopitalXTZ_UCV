@@ -31,7 +31,7 @@ public class pnlHome extends javax.swing.JPanel {
        roles.removeAllItems();
        roles.addItem("Secretaria");
        roles.addItem("Medico");
-       roles.addItem("Direccion Medica");
+       roles.addItem("Junta Directiva");
        
       
         
@@ -139,7 +139,7 @@ public class pnlHome extends javax.swing.JPanel {
         
         }
          
-           if( roles.getSelectedItem()=="Direccion Medica"){
+           if( roles.getSelectedItem()=="Junta Directiva"){
          
            jundamedica obj = new jundamedica();
       obj.setVisible(true);
