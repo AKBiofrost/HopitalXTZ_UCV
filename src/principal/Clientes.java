@@ -28,7 +28,7 @@ public class Clientes extends javax.swing.JFrame {
     int x, y; 
     public Clientes() {
         initComponents();
-        CambiaPanel cambiaPanel = new CambiaPanel(pnlPrincipal, new pnlDasboard.clientes() );
+        CambiaPanel cambiaPanel = new CambiaPanel(pnlPrincipal, new pnlDasboard.Clientes() );
         this.setLocationRelativeTo(null);
 
     }

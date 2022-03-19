@@ -14,12 +14,12 @@ import javax.swing.JPanel;
  *
  * @author Administrador
  */
-public class clientes extends javax.swing.JPanel {
+public class Clientes extends javax.swing.JPanel {
 
     /**
      * Creates new form clientes_dashboard
      */
-    public clientes() {
+    public Clientes() {
         initComponents();
     }
 

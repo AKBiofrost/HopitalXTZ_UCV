@@ -9,9 +9,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import pnlDasboard.jundamedica;
-import pnlDasboard.medico;
-import pnlDasboard.secretaria;
+import pnlDasboard.JuntaMedica;
+import pnlDasboard.Medico;
+import pnlDasboard.Secretaria;
 import principal.Principal;
 
 
@@ -126,14 +126,14 @@ public class pnlHome extends javax.swing.JPanel {
         
         if( roles.getSelectedItem()=="Secretaria"){
          
-           secretaria obj = new secretaria();
+           Secretaria obj = new Secretaria();
       obj.setVisible(true);
         
         }
         
          if( roles.getSelectedItem()=="Medico"){
          
-           medico obj = new medico();
+           Medico obj = new Medico();
       obj.setVisible(true);
         
         
@@ -141,7 +141,7 @@ public class pnlHome extends javax.swing.JPanel {
          
            if( roles.getSelectedItem()=="Junta Directiva"){
          
-           jundamedica obj = new jundamedica();
+           JuntaMedica obj = new JuntaMedica();
       obj.setVisible(true);
         
         

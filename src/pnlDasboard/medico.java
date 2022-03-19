@@ -9,12 +9,12 @@ package pnlDasboard;
  *
  * @author Administrador
  */
-public class medico extends javax.swing.JFrame {
+public class Medico extends javax.swing.JFrame {
 
     /**
      * Creates new form medico
      */
-    public medico() {
+    public Medico() {
         initComponents();
     }
 
@@ -29,8 +29,6 @@ public class medico extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-
-        setPreferredSize(new java.awt.Dimension(857, 513));
 
         jPanel1.setBackground(new java.awt.Color(26, 207, 172));
         jPanel1.setPreferredSize(new java.awt.Dimension(857, 513));
@@ -87,20 +85,21 @@ public class medico extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(medico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Medico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(medico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Medico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(medico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Medico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(medico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Medico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new medico().setVisible(true);
+                new Medico().setVisible(true);
             }
         });
     }

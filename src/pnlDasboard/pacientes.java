@@ -9,12 +9,12 @@ package pnlDasboard;
  *
  * @author Administrador
  */
-public class pacientes extends javax.swing.JPanel {
+public class Pacientes extends javax.swing.JPanel {
 
     /**
      * Creates new form pacientes
      */
-    public pacientes() {
+    public Pacientes() {
         initComponents();
     }
 
