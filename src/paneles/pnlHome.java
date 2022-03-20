@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import pnlDasboard.consultarCita;
 import pnlDasboard.jundamedica;
 import pnlDasboard.medico;
 import pnlDasboard.secretaria;
@@ -133,7 +134,7 @@ public class pnlHome extends javax.swing.JPanel {
         
          if( roles.getSelectedItem()=="Medico"){
          
-           medico obj = new medico();
+           consultarCita obj = new consultarCita();
       obj.setVisible(true);
         
         
