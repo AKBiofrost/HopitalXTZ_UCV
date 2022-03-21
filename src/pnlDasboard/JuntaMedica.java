@@ -31,7 +31,6 @@ public class JuntaMedica extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         rSButtonMetro1 = new rsbuttom.RSButtonMetro();
         rSButtonMetro2 = new rsbuttom.RSButtonMetro();
-        rSButtonMetro3 = new rsbuttom.RSButtonMetro();
         jLabel3 = new javax.swing.JLabel();
         rSButtonMetro4 = new rsbuttom.RSButtonMetro();
 
@@ -54,13 +53,6 @@ public class JuntaMedica extends javax.swing.JFrame {
         rSButtonMetro2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rSButtonMetro2ActionPerformed(evt);
-            }
-        });
-
-        rSButtonMetro3.setText("Eliminar");
-        rSButtonMetro3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonMetro3ActionPerformed(evt);
             }
         });
 
@@ -87,7 +79,6 @@ public class JuntaMedica extends javax.swing.JFrame {
                         .addGap(351, 351, 351)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rSButtonMetro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rSButtonMetro3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(rSButtonMetro4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(348, 348, 348)
@@ -102,11 +93,9 @@ public class JuntaMedica extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(rSButtonMetro4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(rSButtonMetro3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(39, 39, 39)
                 .addComponent(rSButtonMetro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
+                .addGap(116, 116, 116)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(rSButtonMetro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -133,13 +122,6 @@ public class JuntaMedica extends javax.swing.JFrame {
         this.setVisible(false);
         sGestionar.setVisible(true);
     }//GEN-LAST:event_rSButtonMetro1ActionPerformed
-
-    private void rSButtonMetro3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro3ActionPerformed
-        // TODO add your handling code here:
-        SucursalesEliminar sEliminar = new SucursalesEliminar();
-        this.setVisible(false);
-        sEliminar.setVisible(true);
-    }//GEN-LAST:event_rSButtonMetro3ActionPerformed
 
     private void rSButtonMetro4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro4ActionPerformed
         // TODO add your handling code here:
@@ -197,7 +179,6 @@ public class JuntaMedica extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private rsbuttom.RSButtonMetro rSButtonMetro1;
     private rsbuttom.RSButtonMetro rSButtonMetro2;
-    private rsbuttom.RSButtonMetro rSButtonMetro3;
     private rsbuttom.RSButtonMetro rSButtonMetro4;
     // End of variables declaration//GEN-END:variables
 }

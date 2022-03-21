@@ -4,6 +4,9 @@
  */
 package model;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+import org.json.simple.JSONArray;
 /**
  *
  * @author Windows 10
@@ -12,11 +15,48 @@ public class Paciente {
     private String cedula;
     private String nombre;
     private ArrayList<Cita> citas = new ArrayList<>();
-    private ArrayList<Historial> historial = new ArrayList<>();
+    private ArrayList<Historia> historial = new ArrayList<>();
 /*public void addAvailableAppointment(String date, String time){
     availableAppointments.add(new Doctor.AvailableAppointment(date,time));
     }*/
+    public Paciente (String cedula, String nombre, ArrayList<Cita> citas, ArrayList<Historia> historial ){
+        this.cedula = cedula;        
+        this.nombre = nombre;
+        this.citas = citas;
+    }
+    
+    public static Paciente parseJSON (Map paciente) {
+        String cedula = (String) paciente.get("cedula");
+        String nombre = (String) paciente.get("nombre");
+        ArrayList<Cita> citas = new ArrayList<>();
+        ArrayList<Historia> historial = new ArrayList<>();
 
+        System.out.println("\t{");
+        System.out.println("\t\t [Paciente] cedula : " + cedula);
+        System.out.println("\t\t [Paciente] nombre : " + nombre);
+        
+        // citas
+        System.out.println("\t\t [Paciente] citas : ");
+        JSONArray citasJ = (JSONArray) paciente.get("citas");
+        Iterator itrCitasJ = citasJ.iterator();
+        while(itrCitasJ.hasNext()){
+            Map mapCitaJ = ((Map) itrCitasJ.next());
+            citas.add(Cita.parseJSON(mapCitaJ));    
+        }
+        
+        // historial
+        System.out.println("\t\t [Paciente] historial : ");
+        JSONArray historialJ = (JSONArray) paciente.get("historial");
+        Iterator itrHistorialJ = historialJ.iterator();
+        while(itrHistorialJ.hasNext()){
+            Map mapHistorialJ = ((Map) itrHistorialJ.next());
+            historial.add(Historia.parseJSON(mapHistorialJ));    
+        }
+        System.out.println("\t}");
+
+        return new Paciente(cedula, nombre, citas, historial);
+    }
+    
     public String getCedula() {
         return cedula;
     }
@@ -41,11 +81,11 @@ public class Paciente {
         this.citas = citas;
     }
 
-    public ArrayList<Historial> getHistorial() {
+    public ArrayList<Historia> getHistorial() {
         return historial;
     }
 
-    public void setHistorial(ArrayList<Historial> historial) {
+    public void setHistorial(ArrayList<Historia> historial) {
         this.historial = historial;
     }
 

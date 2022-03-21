@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.Map;
+
 /**
  *
  * @author Windows 10
@@ -13,9 +15,25 @@ public class Medico {
     private String nombre;
     private String especialidad;
 
-/*public void addAvailableAppointment(String date, String time){
-    availableAppointments.add(new Doctor.AvailableAppointment(date,time));
-    }*/
+    public Medico(String id, String nombre, String especialidad) {
+        this.id = id;
+        this.nombre = nombre;
+        this.especialidad = especialidad;
+    }
+    
+    public static Medico parseJSON (Map medico) {
+        String id = (String) medico.get("id");
+        String nombre = (String) medico.get("nombre");
+        String especialidad = (String) medico.get("especialidad");
+
+        System.out.println("\t{");
+        System.out.println("\t\t [Medico] id : " + id);
+        System.out.println("\t\t [Medico] nombre : " + nombre);
+        System.out.println("\t\t [Medico] especialidad : " + especialidad);
+        System.out.println("\t}");
+        
+        return new Medico(id, nombre, especialidad);
+    }
     
     public String getId() {
         return id;

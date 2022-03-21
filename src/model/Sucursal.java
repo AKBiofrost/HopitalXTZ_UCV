@@ -4,6 +4,10 @@
  */
 package model;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Objects;
+import org.json.simple.JSONArray;
 /**
  *
  * @author Windows 10
@@ -13,31 +17,121 @@ public class Sucursal {
     private ArrayList<Medico> medicos = new ArrayList<>();
     private ArrayList<Paciente> pacientes = new ArrayList<>();
 
-    /*public void addAvailableAppointment(String date, String time){
-        availableAppointments.add(new Doctor.AvailableAppointment(date,time));
-    }*/
+    public Sucursal() {
+    }
     
+    public Sucursal(String nombre, ArrayList<Medico> medicos, ArrayList<Paciente> pacientes) {
+        this.nombre = nombre;
+        this.medicos = medicos;
+        this.pacientes = pacientes;
+    }
+    
+    public static Sucursal parseJSON (Map sucursal) {
+        
+        String nombre = (String) sucursal.get("nombre");
+        ArrayList<Medico> medicos = new ArrayList<>();
+        ArrayList<Paciente> pacientes = new ArrayList<>();
+        
+        System.out.println("{");
+        // nombre        
+        System.out.println("\t [Sucursal] nombre : " + nombre);
+
+        // médícos
+        System.out.println("\t [Sucursal] médicos : ");
+        JSONArray medicosJ = (JSONArray) sucursal.get("medicos");
+        Iterator itrMedicosJ = medicosJ.iterator();
+        while(itrMedicosJ.hasNext()){
+            Map mapMedJ = ((Map) itrMedicosJ.next());
+            medicos.add(Medico.parseJSON(mapMedJ));    
+        }
+
+        // pacientes
+        System.out.println("\t [Sucursal] pacientes : ");
+        JSONArray pacientesJ = (JSONArray) sucursal.get("pacientes");
+        Iterator itrPacientesJ = pacientesJ.iterator();
+        while(itrPacientesJ.hasNext()){
+            Map mapPacJ = ((Map) itrPacientesJ.next());
+            pacientes.add(Paciente.parseJSON(mapPacJ));    
+        }
+        System.out.println("}");
+        
+        return new Sucursal(nombre, medicos, pacientes);
+    }
+    
+    //Nombre
     public String getNombre() {
         return nombre;
     }
+    
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
+    //Médicos
     public ArrayList<Medico> getMedicos() {
         return medicos;
     }
 
+    public int getMedicosSize() {
+        int size = this.medicos.size();
+        return size;
+    }
+    
+    public ArrayList<Medico> getMedicosSearch(String search) {
+        ArrayList<Medico> found = new ArrayList<>();
+        for (Medico med: medicos) {
+            if(med.getId().matches(".*"+ search +"*")
+               || med.getNombre().matches(".*"+ search +"*")
+               || med.getEspecialidad().matches(".*"+ search +"*")
+            ){
+                found.add(med);
+            }
+        }
+        return found;
+    }
+    
     public void setMedicos(ArrayList<Medico> medicos) {
         this.medicos = medicos;
     }
-
+    
+    //Pacientes
     public ArrayList<Paciente> getPacientes() {
         return pacientes;
     }
+    
+    public int getPacientesSize() {
+        int size = this.pacientes.size();
+        return size;
+    }
 
+    public ArrayList<Paciente> getPacientesSearch(String search) {
+        ArrayList<Paciente> found = new ArrayList<>();
+        for (Paciente pac: pacientes) {
+            if(pac.getCedula().matches(".*"+ search +"*")
+               || pac.getNombre().matches(".*"+ search +"*")
+            ){
+                found.add(pac);
+            }
+        }
+        return found;
+    }
+    
     public void setPacientes(ArrayList<Paciente> pacientes) {
         this.pacientes = pacientes;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sucursal elemento = (Sucursal) o;
+        return  Objects.equals(nombre, elemento.nombre); 
+                //&& Objects.equals(nombre, elemento.nombre);
+        //Float.compare(elemento.precio, precio) == 0
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, medicos, pacientes);
     }
 }

@@ -4,18 +4,34 @@
  */
 package model;
 import java.util.ArrayList;
+import java.util.Map;
 /**
  *
  * @author Windows 10
  */
-public class Historial {
+public class Historia {
     private String id;
     private String paciente;        
-    private ArrayList<citaHistorial> citas = new ArrayList<>();
+    private ArrayList<citaHistoria> citas = new ArrayList<>();
 
-    /*public void addAvailableAppointment(String date, String time){
-        availableAppointments.add(new Doctor.AvailableAppointment(date,time));
-    }*/
+    public Historia (String id, String paciente) {
+        this.id = id;
+        this.paciente = paciente;
+    }
+    
+    public static Historia parseJSON (Map cita) {
+        String id = (String) cita.get("id");
+        String paciente = (String) cita.get("paciente");
+        ArrayList<citaHistoria> citas = new ArrayList<>();
+
+        System.out.println("\t\t{");
+        System.out.println("\t\t\t [Historial] id : " + id);
+        System.out.println("\t\t\t [Historial] paciente : " + paciente);
+        System.out.println("\t\t\t [Historial] citas : " + cita.get("citas"));
+        System.out.println("\t\t}");
+        
+        return new Historia(id, paciente);
+    }
 
     public String getId() {
         return id;
@@ -33,18 +49,18 @@ public class Historial {
         this.paciente = paciente;
     }
 
-    public ArrayList<citaHistorial> getCitas() {
+    public ArrayList<citaHistoria> getCitas() {
         return citas;
     }
 
-    public void setCitas(ArrayList<citaHistorial> citas) {
+    public void setCitas(ArrayList<citaHistoria> citas) {
         this.citas = citas;
     }
     
     
     
     
-    public static class citaHistorial{
+    public static class citaHistoria{
         private String id;
         private String valores;
 

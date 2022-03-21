@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.Map;
+
 /**
  *
  * @author Windows 10
@@ -13,10 +15,26 @@ public class Cita {
     private String medico;
     private String fecha;
 
-/*public void addAvailableAppointment(String date, String time){
-    availableAppointments.add(new Doctor.AvailableAppointment(date,time));
-    }*/
+    public Cita (String id, String medico, String fecha){
+        this.id = id;
+        this.medico = medico;
+        this.fecha = fecha;
+    }
+    
+    public static Cita parseJSON (Map cita) {
+        String id = (String) cita.get("id");
+        String medico = (String) cita.get("medico");
+        String fecha = (String) cita.get("fecha");
 
+        System.out.println("\t\t{");
+        System.out.println("\t\t\t [Cita] id : " + id);
+        System.out.println("\t\t\t [Cita] medico : " + medico);
+        System.out.println("\t\t\t [Cita] fecha : " + fecha);
+        System.out.println("\t\t}");
+        
+        return new Cita(id, medico, fecha);
+    }
+    
     public String getId() {
         return id;
     }

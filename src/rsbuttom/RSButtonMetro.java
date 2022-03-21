@@ -80,25 +80,31 @@ public class RSButtonMetro extends JButton implements MouseListener, MouseMotion
      * Cuando se presiona el boton se cambian los colores de fondo y de texto
      */
     public void mousePressed(MouseEvent e) {
-        this.setForeground(this.colorTextPressed);
-        this.setBackground(this.colorPressed);
+        if(this.isEnabled()){        
+            this.setForeground(this.colorTextPressed);
+            this.setBackground(this.colorPressed);
+        }
     }
 
     /**
      * Cuando se leventa el mouse del jbutton se retoman los colores originales
      */
-    public void mouseReleased(MouseEvent e) {       
-        this.setBackground(this.colorNormal);
-        this.setForeground(this.colorTextNormal);
+    public void mouseReleased(MouseEvent e) {  
+        if(this.isEnabled()){        
+            this.setBackground(this.colorNormal);
+            this.setForeground(this.colorTextNormal);
+        }
     }
 
     public void mouseEntered(MouseEvent e) {
     }
 
     public void mouseExited(MouseEvent e) {
-        this.setBorder(null);
-        this.setBackground(this.colorNormal);
-        this.setForeground(this.colorTextNormal);
+        if(this.isEnabled()){        
+            this.setBorder(null);
+            this.setBackground(this.colorNormal);
+            this.setForeground(this.colorTextNormal);
+        }
     }
 
     public Color getColorPressed() {
@@ -166,10 +172,12 @@ public class RSButtonMetro extends JButton implements MouseListener, MouseMotion
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        if(this.isEnabled()){
+            this.setForeground(this.colorTextHover);
+            this.setBackground(this.colorHover);
+            this.setBorder(bordeMoved);    
+        }
         
-        this.setForeground(this.colorTextHover);
-        this.setBackground(this.colorHover);
-        
-        this.setBorder(bordeMoved);
     }
+
 }
