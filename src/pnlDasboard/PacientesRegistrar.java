@@ -12,15 +12,21 @@ import model.Sucursal;
  *
  * @author Administrador
  */
-public class MedicosRegistrar extends javax.swing.JFrame {
+public class PacientesRegistrar extends javax.swing.JFrame {
     Data dataXYZ = Data.getInstance();
+    Sucursal sucursal;
     
-    public MedicosRegistrar() {
+    public PacientesRegistrar(String sucursalName) {
         initComponents();
+        sucursal = dataXYZ.getSucursalByNombre(sucursalName);
         
         for(Sucursal suc: dataXYZ.getSucursales()){
             inputSucursal.addItem(suc.getNombre());            
         }
+    }
+
+    private PacientesRegistrar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     private void showMessage(String msg){
@@ -67,7 +73,7 @@ public class MedicosRegistrar extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Médicos - Registrar");
+        jLabel2.setText("Pacientes - Registrar");
 
         rSButtonMetro5.setBackground(new java.awt.Color(255, 80, 80));
         rSButtonMetro5.setText("<");
@@ -266,10 +272,9 @@ public class MedicosRegistrar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rSButtonMetro5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro5ActionPerformed
-        // TODO add your handling code here:
-        JuntaMedicaMain jMedica = new JuntaMedicaMain();
-        this.setVisible(false);
-        jMedica.setVisible(true);
+        SecretariaSubMain wSecS = new SecretariaSubMain(sucursal.getNombre());
+        this.dispose();
+        wSecS.setVisible(true);
     }//GEN-LAST:event_rSButtonMetro5ActionPerformed
 
     private void inputIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputIdActionPerformed
@@ -324,14 +329,30 @@ public class MedicosRegistrar extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MedicosRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PacientesRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MedicosRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PacientesRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MedicosRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PacientesRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MedicosRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PacientesRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -352,7 +373,7 @@ public class MedicosRegistrar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MedicosRegistrar().setVisible(true);
+                new PacientesRegistrar().setVisible(true);
             }
         });
     }

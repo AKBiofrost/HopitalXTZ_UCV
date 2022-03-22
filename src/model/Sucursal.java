@@ -14,8 +14,8 @@ import org.json.simple.JSONArray;
  */
 public class Sucursal {
     private String nombre;    
-    private ArrayList<Medico> medicos = new ArrayList<>();
-    private ArrayList<Paciente> pacientes = new ArrayList<>();
+    ArrayList<Medico> medicos = new ArrayList<>();
+    ArrayList<Paciente> pacientes = new ArrayList<>();
 
     public Sucursal() {
     }
@@ -80,9 +80,9 @@ public class Sucursal {
     public ArrayList<Medico> getMedicosSearch(String search) {
         ArrayList<Medico> found = new ArrayList<>();
         for (Medico med: medicos) {
-            if(med.getId().matches(".*"+ search +"*")
-               || med.getNombre().matches(".*"+ search +"*")
-               || med.getEspecialidad().matches(".*"+ search +"*")
+            if(med.getId().matches(".*"+ search +".*")
+               || med.getNombre().matches(".*"+ search +".*")
+               || med.getEspecialidad().matches(".*"+ search +".*")
             ){
                 found.add(med);
             }
@@ -96,7 +96,7 @@ public class Sucursal {
     
     //Pacientes
     public ArrayList<Paciente> getPacientes() {
-        return pacientes;
+        return this.pacientes;
     }
     
     public int getPacientesSize() {
@@ -106,9 +106,9 @@ public class Sucursal {
 
     public ArrayList<Paciente> getPacientesSearch(String search) {
         ArrayList<Paciente> found = new ArrayList<>();
-        for (Paciente pac: pacientes) {
-            if(pac.getCedula().matches(".*"+ search +"*")
-               || pac.getNombre().matches(".*"+ search +"*")
+        for (Paciente pac: this.pacientes) {
+            if(pac.getCedula().matches(".*"+ search +".*")
+               || pac.getNombre().matches(".*"+ search +".*")
             ){
                 found.add(pac);
             }

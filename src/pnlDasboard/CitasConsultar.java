@@ -129,7 +129,7 @@ public class CitasConsultar extends javax.swing.JFrame {
 
     private void rSButtonMetro5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro5ActionPerformed
         // TODO add your handling code here:
-        JuntaMedica jMedica = new JuntaMedica();
+        JuntaMedicaMain jMedica = new JuntaMedicaMain();
         this.setVisible(false);
         jMedica.setVisible(true);
     }//GEN-LAST:event_rSButtonMetro5ActionPerformed

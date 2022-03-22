@@ -13,7 +13,6 @@ import model.Sucursal;
  * @author Administrador
  */
 public class SucursalesEditar extends javax.swing.JFrame {
-    String nombre;
     Data dataXYZ = Data.getInstance();    
     Sucursal sucursal;
 
@@ -23,7 +22,6 @@ public class SucursalesEditar extends javax.swing.JFrame {
      */
     public SucursalesEditar(String nombre) {
         initComponents();
-        this.nombre = nombre;
         labelNombre.setText(nombre);
         sucursal = dataXYZ.getSucursalByNombre(nombre);
         
@@ -45,9 +43,10 @@ public class SucursalesEditar extends javax.swing.JFrame {
     }
     
     private void showData(){
+        //System.out.println("ShowData");
         panelData.setVisible(true);
         msgSucursalPanel.setVisible(false);
-        labelNombre.setText(this.nombre);
+        labelNombre.setText(sucursal.getNombre());
         inputNombre.setText(sucursal.getNombre());
         
         boolean isRemovable = sucursal.getMedicosSize() == 0 && sucursal.getPacientesSize() == 0;
@@ -128,6 +127,11 @@ public class SucursalesEditar extends javax.swing.JFrame {
         });
 
         btnChangeData.setText("Cambiar Datos");
+        btnChangeData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeDataActionPerformed(evt);
+            }
+        });
 
         btnViewMedicos.setText("Ver Médicos");
         btnViewMedicos.addActionListener(new java.awt.event.ActionListener() {
@@ -247,11 +251,20 @@ public class SucursalesEditar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        System.out.println("CLICKED");
+        boolean deleted = dataXYZ.deleteSucursalByNombre(sucursal.getNombre());
+        if(deleted){
+            this.dispose();
+            SucursalesGestionar wSucGes = new SucursalesGestionar();
+            wSucGes.setVisible(true);
+        }else{
+            showMessage("Ha ocurrido un error, la sucursal no pudo ser Eliminada.");
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        this.setVisible(false);
+        this.dispose();
+        SucursalesGestionar wSucGes = new SucursalesGestionar();
+        wSucGes.setVisible(true);
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void inputNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputNombreActionPerformed
@@ -267,6 +280,12 @@ public class SucursalesEditar extends javax.swing.JFrame {
         SucursalesPacientes sPacientes = new SucursalesPacientes(sucursal.getNombre());
         sPacientes.setVisible(true);
     }//GEN-LAST:event_btnViewPacientesActionPerformed
+
+    private void btnChangeDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeDataActionPerformed
+        String newNombre = inputNombre.getText();
+        sucursal.setNombre(newNombre);
+        showData();
+    }//GEN-LAST:event_btnChangeDataActionPerformed
 
     /**
      * @param args the command line arguments

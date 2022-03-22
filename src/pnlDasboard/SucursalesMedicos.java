@@ -26,7 +26,7 @@ public class SucursalesMedicos extends javax.swing.JFrame {
         initComponents();
         
         this.nombre = nombre;
-        labelNombre.setText(nombre + " - Médicos");
+        labelTitle.setText(nombre + " - Médicos");
         sucursal = dataXYZ.getSucursalByNombre(nombre);
         
         if(sucursal == null){
@@ -51,7 +51,8 @@ public class SucursalesMedicos extends javax.swing.JFrame {
         msgSucursalMedicoPanel.setVisible(false);
         int cols = 3;
         int rows = lista.size();
-        
+        labelTitle.setText(sucursal.getNombre() + " - Médicos (" + rows + ")");
+                
         String matriz[][] = new String[rows][cols];
         for(int i = 0; i < rows; i++){
             matriz[i][0] = lista.get(i).getId();
@@ -81,7 +82,7 @@ public class SucursalesMedicos extends javax.swing.JFrame {
 
         rSButtonMetro2 = new rsbuttom.RSButtonMetro();
         jPanel1 = new javax.swing.JPanel();
-        labelNombre = new javax.swing.JLabel();
+        labelTitle = new javax.swing.JLabel();
         rSButtonMetro5 = new rsbuttom.RSButtonMetro();
         tableMedicosPanel = new javax.swing.JScrollPane();
         tableMedicos = new javax.swing.JTable();
@@ -99,10 +100,10 @@ public class SucursalesMedicos extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(26, 207, 172));
         jPanel1.setPreferredSize(new java.awt.Dimension(857, 513));
 
-        labelNombre.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        labelNombre.setForeground(new java.awt.Color(255, 255, 255));
-        labelNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelNombre.setText("Nombre Sucursal");
+        labelTitle.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        labelTitle.setForeground(new java.awt.Color(255, 255, 255));
+        labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelTitle.setText("Nombre Sucursal");
 
         rSButtonMetro5.setBackground(new java.awt.Color(255, 80, 80));
         rSButtonMetro5.setText("<");
@@ -189,7 +190,7 @@ public class SucursalesMedicos extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -213,7 +214,7 @@ public class SucursalesMedicos extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(labelNombre)
+                .addComponent(labelTitle)
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inputSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -339,7 +340,7 @@ public class SucursalesMedicos extends javax.swing.JFrame {
     private javax.swing.JTextField inputSearch;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel labelNombre;
+    private javax.swing.JLabel labelTitle;
     private javax.swing.JScrollPane msgSucursalMedicoPanel;
     private javax.swing.JTextArea msgSucursalMedicos;
     private rsbuttom.RSButtonMetro rSButtonMetro1;

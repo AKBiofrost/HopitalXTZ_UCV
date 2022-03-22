@@ -100,7 +100,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="M&#xe9;dicos - Registrar"/>
+            <Property name="text" type="java.lang.String" value="Pacientes - Registrar"/>
           </Properties>
         </Component>
         <Component class="rsbuttom.RSButtonMetro" name="rSButtonMetro5">

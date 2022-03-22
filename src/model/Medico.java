@@ -12,27 +12,31 @@ import java.util.Map;
  */
 public class Medico {
     private String id;
-    private String nombre;
+    private String nombre;    
+    private String apellido;
     private String especialidad;
 
-    public Medico(String id, String nombre, String especialidad) {
+    public Medico(String id, String nombre, String apellido, String especialidad) {
         this.id = id;
         this.nombre = nombre;
+        this.apellido = apellido;
         this.especialidad = especialidad;
     }
     
     public static Medico parseJSON (Map medico) {
         String id = (String) medico.get("id");
         String nombre = (String) medico.get("nombre");
+        String apellido = (String) medico.get("apellido");
         String especialidad = (String) medico.get("especialidad");
 
         System.out.println("\t{");
         System.out.println("\t\t [Medico] id : " + id);
         System.out.println("\t\t [Medico] nombre : " + nombre);
+        System.out.println("\t\t [Medico] apellido : " + apellido);
         System.out.println("\t\t [Medico] especialidad : " + especialidad);
         System.out.println("\t}");
         
-        return new Medico(id, nombre, especialidad);
+        return new Medico(id, nombre, apellido, especialidad);
     }
     
     public String getId() {

@@ -15,7 +15,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
- *
+ * Singleton
  * @author Windows 10
  */
 public class Data {
@@ -64,6 +64,7 @@ public class Data {
         return instance;
     }
 
+    // Sucursales
     public ArrayList<Sucursal> getSucursales() {
         return sucursales;
     }
@@ -71,7 +72,7 @@ public class Data {
     public ArrayList<Sucursal> getSucursalesByNombre(String nombre) {
         ArrayList<Sucursal> found = new ArrayList<>();
         for (Sucursal suc: sucursales) {
-            if(suc.getNombre().matches(".*"+ nombre +"*")){
+            if(suc.getNombre().matches(".*"+ nombre +".*")){
                 found.add(suc);
             }
         }
@@ -81,8 +82,9 @@ public class Data {
     public Sucursal getSucursalByNombre(String nombre) {
         ArrayList<Sucursal> found = new ArrayList<>();
         for (Sucursal suc: sucursales) {
-            if(suc.getNombre().matches(".*"+ nombre +"*")){
+            if(suc.getNombre().matches(nombre)){
                 found.add(suc);
+                break;
             }
         }
         
@@ -90,9 +92,46 @@ public class Data {
         else return found.get(0);
     }
 
+    public int getIndexSucursalByNombre (String nombre) {
+        int index = -1;
+        for (int i = 0; i < sucursales.size(); i++) {
+                Sucursal e = sucursales.get(i);
+                if (e.getNombre().equals(nombre)) {
+                        index = i;
+                        break; // Terminar ciclo
+                }
+        }
+        return index;
+    }
+    
+    public boolean deleteSucursalByNombre (String nombre) {
+        int index = getIndexSucursalByNombre(nombre);
+        if(index == -1) return false;
+        
+        sucursales.remove(index);
+        return true;
+    }
+    
     public void setSucursales(ArrayList<Sucursal> sucursales) {
         this.sucursales = sucursales;
     }
 
+    // Médicos
+    public boolean insertMedico(String id, String nombre, String apellido, 
+        String especialidad, String sucursal)
+    {
+        System.out.println("insertMEdico");
+        System.out.println("id: " + id);
+        System.out.println("nombre :" + nombre);
+        System.out.println("apellido :" + apellido);
+        System.out.println("especialidad : " + especialidad);
+        System.out.println("sucursal : " + sucursal);
     
+        int index = getIndexSucursalByNombre(sucursal);
+        if(index == -1) return false;
+        
+        Medico newMedico = new Medico(id, nombre, apellido, especialidad);
+        sucursales.get(index).medicos.add(newMedico);
+        return true;
+    }
 }

@@ -8,56 +8,63 @@ package pnlDasboard;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import model.Data;
+import model.Paciente;
 import model.Sucursal;
 
 /**
  *
  * @author Administrador
  */
-public class SucursalesGestionar extends javax.swing.JFrame {
+public class CitasGestionar extends javax.swing.JFrame {
     Data dataXYZ = Data.getInstance();
+    Sucursal sucursal;
     
-    public SucursalesGestionar() {
+    public CitasGestionar(String sucursalName) {
         initComponents();
+        sucursal = dataXYZ.getSucursalByNombre(sucursalName);
+        labelTitle.setText("Citas - Pacientes");
+        labelSesion.setText("Sesión: " + sucursal.getNombre());
         
-        if(dataXYZ.getSucursales().isEmpty()){
-            showMessage("No Hay sucursales, si desea agregar sucursales dirijase \n al modulo de Registro.");
+        if(sucursal.getPacientes().isEmpty()){
+            showMessage("No Hay pacientes, dirijase \n al modulo de Registro de Pacientes.");
         }else{
-            showTable(dataXYZ.getSucursales());
+            showTable(sucursal.getPacientes());
         }
+    }
+
+    private CitasGestionar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     private void showMessage(String msg){
-        tableSucursalesPanel.setVisible(false);
-        msgSucursalesPanel.setVisible(true);
-        msgSucursales.setText(msg);
+        tablePacientesPanel.setVisible(false);
+        msgPacientesPanel.setVisible(true);
+        msgPacientes.setText(msg);
     }
     
-    private void showTable(ArrayList<Sucursal> lista){
-        tableSucursalesPanel.setVisible(true);
-        msgSucursalesPanel.setVisible(false);
-        int cols = 3;
+    private void showTable(ArrayList<Paciente> lista){
+        tablePacientesPanel.setVisible(true);
+        msgPacientesPanel.setVisible(false);
+        int cols = 2;
         int rows = lista.size();
-        labelTitle.setText("Sucursales - Gestionar (" + rows + ")");
-        
+        labelTitle.setText("Citas - Pacientes (" + rows + ")");
+
         String matriz[][] = new String[rows][cols];
-        for(int i = 0; i < lista.size(); i++){
-            matriz[i][0] = lista.get(i).getNombre();
-            matriz[i][1] = Integer.toString(lista.get(i).getMedicosSize());
-            matriz[i][2] = Integer.toString(lista.get(i).getPacientesSize());
+        for(int i = 0; i < rows; i++){
+            matriz[i][0] = lista.get(i).getCedula();
+            matriz[i][1] = lista.get(i).getNombre();
         }
         
-        String[] cabecera = new String[]{"Nombre", "Médicos", "Pacientes"};
+        String[] cabecera = new String[]{"Cédula", "Nombre"};
         DefaultTableModel model = new DefaultTableModel(matriz,cabecera);
-        tableSucursales.setModel(model);
+        tablePacientes.setModel(model);
         
-        int[] anchos = new int[]{200, 50, 50};
+        int[] anchos = new int[]{100, 300};
         for(int i=0; i<cols ;i++){
-            tableSucursales.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+            tablePacientes.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
 
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,13 +78,14 @@ public class SucursalesGestionar extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         labelTitle = new javax.swing.JLabel();
         rSButtonMetro5 = new rsbuttom.RSButtonMetro();
-        tableSucursalesPanel = new javax.swing.JScrollPane();
-        tableSucursales = new javax.swing.JTable();
-        inputNombre = new javax.swing.JTextField();
+        tablePacientesPanel = new javax.swing.JScrollPane();
+        tablePacientes = new javax.swing.JTable();
+        inputSearch = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        rSButtonMetro1 = new rsbuttom.RSButtonMetro();
-        msgSucursalesPanel = new javax.swing.JScrollPane();
-        msgSucursales = new javax.swing.JTextArea();
+        btnFilter = new rsbuttom.RSButtonMetro();
+        msgPacientesPanel = new javax.swing.JScrollPane();
+        msgPacientes = new javax.swing.JTextArea();
+        labelSesion = new javax.swing.JLabel();
 
         rSButtonMetro2.setBackground(new java.awt.Color(255, 80, 80));
         rSButtonMetro2.setText("<");
@@ -90,7 +98,7 @@ public class SucursalesGestionar extends javax.swing.JFrame {
         labelTitle.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         labelTitle.setForeground(new java.awt.Color(255, 255, 255));
         labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelTitle.setText("Sucursales - Gestionar");
+        labelTitle.setText("Citas - Pacientes");
 
         rSButtonMetro5.setBackground(new java.awt.Color(255, 80, 80));
         rSButtonMetro5.setText("<");
@@ -104,7 +112,7 @@ public class SucursalesGestionar extends javax.swing.JFrame {
             }
         });
 
-        tableSucursales.setModel(new javax.swing.table.DefaultTableModel(
+        tablePacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -133,21 +141,21 @@ public class SucursalesGestionar extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tableSucursales.setEnabled(false);
-        tableSucursales.setRowHeight(30);
-        tableSucursales.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablePacientes.setEnabled(false);
+        tablePacientes.setRowHeight(30);
+        tablePacientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tableSucursalesMousePressed(evt);
+                tablePacientesMousePressed(evt);
             }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableSucursalesMouseClicked(evt);
+                tablePacientesMouseClicked(evt);
             }
         });
-        tableSucursalesPanel.setViewportView(tableSucursales);
+        tablePacientesPanel.setViewportView(tablePacientes);
 
-        inputNombre.addActionListener(new java.awt.event.ActionListener() {
+        inputSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputNombreActionPerformed(evt);
+                inputSearchActionPerformed(evt);
             }
         });
 
@@ -155,60 +163,73 @@ public class SucursalesGestionar extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nombre:");
 
-        rSButtonMetro1.setText("Filtrar");
-        rSButtonMetro1.addActionListener(new java.awt.event.ActionListener() {
+        btnFilter.setText("Filtrar");
+        btnFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonMetro1ActionPerformed(evt);
+                btnFilterActionPerformed(evt);
             }
         });
 
-        msgSucursalesPanel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        msgSucursalesPanel.setHorizontalScrollBar(null);
+        msgPacientesPanel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        msgPacientesPanel.setHorizontalScrollBar(null);
 
-        msgSucursales.setEditable(false);
-        msgSucursales.setBackground(new java.awt.Color(26, 207, 172));
-        msgSucursales.setColumns(20);
-        msgSucursales.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        msgSucursales.setRows(2);
-        msgSucursales.setTabSize(10);
-        msgSucursalesPanel.setViewportView(msgSucursales);
+        msgPacientes.setEditable(false);
+        msgPacientes.setBackground(new java.awt.Color(26, 207, 172));
+        msgPacientes.setColumns(20);
+        msgPacientes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        msgPacientes.setRows(2);
+        msgPacientes.setTabSize(10);
+        msgPacientesPanel.setViewportView(msgPacientes);
+
+        labelSesion.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        labelSesion.setForeground(new java.awt.Color(255, 255, 255));
+        labelSesion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labelSesion.setText("sesión: [nombre Sucursal]");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)
-                        .addComponent(rSButtonMetro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(msgSucursalesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(102, 102, 102)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(inputSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(57, 57, 57)
+                                .addComponent(btnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(102, 102, 102)
+                                .addComponent(msgPacientesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(rSButtonMetro5, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(97, 97, 97)
+                                .addComponent(tablePacientesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 87, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(rSButtonMetro5, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(97, 97, 97)
-                        .addComponent(tableSucursalesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(93, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addComponent(labelSesion)
+                .addGap(5, 5, 5)
                 .addComponent(labelTitle)
-                .addGap(29, 29, 29)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(rSButtonMetro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(msgSucursalesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(msgPacientesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -216,7 +237,7 @@ public class SucursalesGestionar extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(tableSucursalesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tablePacientesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(29, Short.MAX_VALUE))))
         );
 
@@ -234,47 +255,38 @@ public class SucursalesGestionar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
-        String nombre = inputNombre.getText();
-        if("".equals(nombre)){
-            showTable(dataXYZ.getSucursales());
+    private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
+        String search = inputSearch.getText();
+        if("".equals(search)){
+            showTable(sucursal.getPacientes());
             return;
         }
         
-        ArrayList<Sucursal> sucursalesFound = dataXYZ.getSucursalesByNombre(nombre);        
-        if(sucursalesFound.isEmpty()){
-            showMessage("No Se encontraron sucursales con el nombre buscando. \n" 
-                    + "Su búsqueda: " + nombre);
-        }else showTable(sucursalesFound);
-        inputNombre.setText("");
-    }//GEN-LAST:event_rSButtonMetro1ActionPerformed
+        ArrayList<Paciente> found = sucursal.getPacientesSearch(search);        
+        if(found.isEmpty()){
+            showMessage("No Se encontraron pacientes con lo buscando. \n" 
+                    + "Su búsqueda: " + search);
+        }else showTable(found);
+        inputSearch.setText("");        
+    }//GEN-LAST:event_btnFilterActionPerformed
 
-    private void inputNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputNombreActionPerformed
+    private void inputSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputSearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_inputNombreActionPerformed
+    }//GEN-LAST:event_inputSearchActionPerformed
 
     private void rSButtonMetro5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro5ActionPerformed
-        JuntaMedicaMain jMedica = new JuntaMedicaMain();
+        SecretariaSubMain wSecS = new SecretariaSubMain(sucursal.getNombre());
         this.dispose();
-        jMedica.setVisible(true);
+        wSecS.setVisible(true);
     }//GEN-LAST:event_rSButtonMetro5ActionPerformed
 
-    private void tableSucursalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSucursalesMouseClicked
-        if(evt.getClickCount() == 2){
-            int row = tableSucursales.rowAtPoint(evt.getPoint());
-            if (row != -1) {
-                String nombre = (String) tableSucursales.getValueAt(row, 0);
-                SucursalesEditar sEditar = new SucursalesEditar(nombre);
-                //this.setVisible(false);
-                this.dispose();
-                sEditar.setVisible(true);
-            }
-        }
-    }//GEN-LAST:event_tableSucursalesMouseClicked
+    private void tablePacientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePacientesMouseClicked
+        
+    }//GEN-LAST:event_tablePacientesMouseClicked
 
-    private void tableSucursalesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSucursalesMousePressed
+    private void tablePacientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePacientesMousePressed
      
-    }//GEN-LAST:event_tableSucursalesMousePressed
+    }//GEN-LAST:event_tablePacientesMousePressed
 
     /**
      * @param args the command line arguments
@@ -293,14 +305,22 @@ public class SucursalesGestionar extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SucursalesGestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CitasGestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SucursalesGestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CitasGestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SucursalesGestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CitasGestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SucursalesGestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CitasGestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -313,22 +333,23 @@ public class SucursalesGestionar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SucursalesGestionar().setVisible(true);
+                new CitasGestionar().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField inputNombre;
+    private rsbuttom.RSButtonMetro btnFilter;
+    private javax.swing.JTextField inputSearch;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelSesion;
     private javax.swing.JLabel labelTitle;
-    private javax.swing.JTextArea msgSucursales;
-    private javax.swing.JScrollPane msgSucursalesPanel;
-    private rsbuttom.RSButtonMetro rSButtonMetro1;
+    private javax.swing.JTextArea msgPacientes;
+    private javax.swing.JScrollPane msgPacientesPanel;
     private rsbuttom.RSButtonMetro rSButtonMetro2;
     private rsbuttom.RSButtonMetro rSButtonMetro5;
-    private javax.swing.JTable tableSucursales;
-    private javax.swing.JScrollPane tableSucursalesPanel;
+    private javax.swing.JTable tablePacientes;
+    private javax.swing.JScrollPane tablePacientesPanel;
     // End of variables declaration//GEN-END:variables
 }
