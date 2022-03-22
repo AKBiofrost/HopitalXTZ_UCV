@@ -266,9 +266,8 @@ public class MedicosRegistrar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rSButtonMetro5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro5ActionPerformed
-        // TODO add your handling code here:
         JuntaMedicaMain jMedica = new JuntaMedicaMain();
-        this.setVisible(false);
+        this.dispose();
         jMedica.setVisible(true);
     }//GEN-LAST:event_rSButtonMetro5ActionPerformed
 

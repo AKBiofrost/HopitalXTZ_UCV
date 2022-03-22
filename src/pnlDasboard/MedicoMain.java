@@ -5,7 +5,9 @@
  */
 package pnlDasboard;
 
+import java.util.ArrayList;
 import model.Data;
+import model.Medico;
 import model.Sucursal;
 
 /**
@@ -19,9 +21,15 @@ public class MedicoMain extends javax.swing.JFrame {
         initComponents();
         
         for(Sucursal suc: dataXYZ.getSucursales()){
-            inputSucursales.addItem(suc.getNombre());            
+            inputSucursal.addItem(suc.getNombre());            
         }
     }
+    
+    private void showMessage(String msg){
+        msgIngresarMedicoPanel.setVisible(true);
+        msgIngresarMedico.setText(msg);
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,10 +43,13 @@ public class MedicoMain extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         rSButtonMetro1 = new rsbuttom.RSButtonMetro();
-        inputSucursales = new javax.swing.JComboBox<>();
+        inputSucursal = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        inputUsuariosMedicos1 = new javax.swing.JComboBox<>();
+        inputUsuariosMedicos = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
+        msgIngresarMedicoPanel = new javax.swing.JScrollPane();
+        msgIngresarMedico = new javax.swing.JTextArea();
+        btnReturn = new rsbuttom.RSButtonMetro();
 
         jPanel1.setBackground(new java.awt.Color(26, 207, 172));
         jPanel1.setPreferredSize(new java.awt.Dimension(857, 513));
@@ -55,10 +66,10 @@ public class MedicoMain extends javax.swing.JFrame {
             }
         });
 
-        inputSucursales.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        inputSucursales.addItemListener(new java.awt.event.ItemListener() {
+        inputSucursal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        inputSucursal.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                inputSucursalesItemStateChanged(evt);
+                inputSucursalItemStateChanged(evt);
             }
         });
 
@@ -66,11 +77,34 @@ public class MedicoMain extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Seleccione la sucursal donde trabaja:");
 
-        inputUsuariosMedicos1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        inputUsuariosMedicos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Seleccione su usuario médico:");
+
+        msgIngresarMedicoPanel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        msgIngresarMedicoPanel.setHorizontalScrollBar(null);
+
+        msgIngresarMedico.setEditable(false);
+        msgIngresarMedico.setBackground(new java.awt.Color(26, 207, 172));
+        msgIngresarMedico.setColumns(20);
+        msgIngresarMedico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        msgIngresarMedico.setRows(2);
+        msgIngresarMedico.setTabSize(10);
+        msgIngresarMedicoPanel.setViewportView(msgIngresarMedico);
+
+        btnReturn.setBackground(new java.awt.Color(255, 80, 80));
+        btnReturn.setText("<");
+        btnReturn.setColorHover(new java.awt.Color(255, 90, 90));
+        btnReturn.setColorNormal(new java.awt.Color(255, 80, 80));
+        btnReturn.setColorPressed(new java.awt.Color(255, 90, 90));
+        btnReturn.setColorTextNormal(new java.awt.Color(255, 255, 255));
+        btnReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReturnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -79,40 +113,51 @@ public class MedicoMain extends javax.swing.JFrame {
             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(241, 241, 241))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(241, 241, 241))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(rSButtonMetro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(350, 350, 350))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(inputSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(166, 166, 166)
-                                .addComponent(inputUsuariosMedicos1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(350, 350, 350)
-                                .addComponent(rSButtonMetro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(inputSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(166, 166, 166)
+                            .addComponent(inputUsuariosMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(267, 267, 267)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(169, Short.MAX_VALUE))
+                        .addGap(265, 265, 265)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(msgIngresarMedicoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(jLabel7)
-                .addGap(18, 18, 18)
-                .addComponent(inputSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(inputSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(inputUsuariosMedicos1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
+                .addComponent(inputUsuariosMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(msgIngresarMedicoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(rSButtonMetro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66))
+                .addGap(18, 18, 18)
+                .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -130,15 +175,36 @@ public class MedicoMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
-        // TODO add your handling code here:
+        String sucursal = inputSucursal.getSelectedItem().toString();
+        String medico = inputUsuariosMedicos.getSelectedItem().toString();
+        System.out.println("medico :" + medico);
+        if("".equals(medico) || medico == null){
+            showMessage("Debe seleccionar su usuario de tipo médico");
+        }else{
+            MedicoSubMain wMedicoS = new MedicoSubMain(sucursal, medico);
+            this.dispose();
+            wMedicoS.setVisible(true);    
+        }
     }//GEN-LAST:event_rSButtonMetro1ActionPerformed
 
-    private void inputSucursalesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_inputSucursalesItemStateChanged
+    private void inputSucursalItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_inputSucursalItemStateChanged
+        String sucursal = inputSucursal.getSelectedItem().toString();
+        inputUsuariosMedicos.removeAllItems();
+        ArrayList<Medico> dataFound = dataXYZ.getMedicosBySucursalName(sucursal);
         
-        /*for(Sucursal suc: dataXYZ.getSucursales()){
-            inputSucursales.addItem(suc.getNombre());            
-        }*/
-    }//GEN-LAST:event_inputSucursalesItemStateChanged
+        if(dataFound.isEmpty()){
+            inputUsuariosMedicos.addItem("");
+        }else{
+            for(Medico med: dataFound){
+                inputUsuariosMedicos.addItem(med.getNombre());            
+            }    
+        }
+        
+    }//GEN-LAST:event_inputSucursalItemStateChanged
+
+    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnReturnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,12 +249,15 @@ public class MedicoMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> inputSucursales;
-    private javax.swing.JComboBox<String> inputUsuariosMedicos1;
+    private rsbuttom.RSButtonMetro btnReturn;
+    private javax.swing.JComboBox<String> inputSucursal;
+    private javax.swing.JComboBox<String> inputUsuariosMedicos;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextArea msgIngresarMedico;
+    private javax.swing.JScrollPane msgIngresarMedicoPanel;
     private rsbuttom.RSButtonMetro rSButtonMetro1;
     // End of variables declaration//GEN-END:variables
 

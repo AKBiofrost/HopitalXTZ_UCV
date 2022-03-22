@@ -112,10 +112,27 @@ public class Data {
         return true;
     }
     
+    public boolean insertSucursal(String nombre)
+    {
+        System.out.println("insertSucursal");
+        System.out.println("nombre :" + nombre);
+        
+        int index = getIndexSucursalByNombre(nombre);
+        if(index != -1) return false;
+        
+        ArrayList<Medico> medicos = new ArrayList<>();
+        ArrayList<Paciente> pacientes = new ArrayList<>();
+        
+        Sucursal newSucursal = new Sucursal(nombre, medicos, pacientes);
+        sucursales.add(newSucursal);
+        return true;
+    }
+    
     public void setSucursales(ArrayList<Sucursal> sucursales) {
         this.sucursales = sucursales;
     }
 
+    
     // Médicos
     public boolean insertMedico(String id, String nombre, String apellido, 
         String especialidad, String sucursal)
@@ -134,4 +151,75 @@ public class Data {
         sucursales.get(index).medicos.add(newMedico);
         return true;
     }
+    
+    public ArrayList<Medico> getMedicosBySucursalName(String sucursal) {
+        //System.out.println("getMedicosBySucursalName");
+        //System.out.println("sucursal : " + sucursal);
+        ArrayList<Medico> arrayEmpty = new ArrayList<>();
+    
+        int index = getIndexSucursalByNombre(sucursal);
+        if(index == -1) return arrayEmpty;
+        
+        return sucursales.get(index).getMedicos();
+    }
+    
+    // Citas
+    public boolean insertCita(String sucursal, String cita, String paciente, 
+        String medico, String fecha)
+    {
+        System.out.println("insertCita");
+        System.out.println("sucursal : " + sucursal);
+        System.out.println("cita: " + cita);
+        System.out.println("paciente :" + paciente);
+        System.out.println("medico :" + medico);
+        System.out.println("fecha : " + fecha);
+    
+        int idxSuc = getIndexSucursalByNombre(sucursal);
+        if(idxSuc == -1) return false;
+                System.out.println("idxSuc: " + idxSuc);
+
+        int idxPac = getIndexPacienteByCedula(idxSuc, paciente);
+        if(idxPac == -1) return false;
+                System.out.println("idxPac: " + idxPac);
+
+        Cita newCita = new Cita(cita, medico, fecha);
+        sucursales.get(idxSuc).pacientes.get(idxPac).citas.add(newCita);
+        return true;
+    }
+    
+    
+    
+    // Pacientes
+    public boolean insertPaciente(String sucursal, String cedula, String nombre)
+    {
+        //System.out.println("insertMEdico");
+        //System.out.println("sucursal: " + sucursal);
+        //System.out.println("nombre :" + nombre);
+        //System.out.println("cedula :" + cedula);
+    
+        int index = getIndexSucursalByNombre(sucursal);
+        if(index == -1) return false;
+        
+        ArrayList<Cita> citas = new ArrayList<>();
+        ArrayList<Historia> historial = new ArrayList<>();
+        
+        Paciente newPaciente = new Paciente(cedula, nombre, citas, historial);
+        sucursales.get(index).pacientes.add(newPaciente);
+        return true;
+    }
+    
+    
+    public int getIndexPacienteByCedula (int indexSucursal, String cedula) {
+        int index = -1;
+        ArrayList<Paciente> pacientes = sucursales.get(indexSucursal).pacientes;
+        for (int i = 0; i < pacientes.size(); i++) {
+                Paciente e = pacientes.get(i);
+                if (e.getCedula().equals(cedula)) {
+                        index = i;
+                        break; // Terminar ciclo
+                }
+        }
+        return index;
+    }
+    
 }

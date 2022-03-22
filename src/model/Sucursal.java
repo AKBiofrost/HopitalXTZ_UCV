@@ -99,6 +99,23 @@ public class Sucursal {
         return this.pacientes;
     }
     
+    public Paciente getPacienteByCedula(String cedula) {
+        int idx = getIndexPacienteByCedula(cedula);
+        return this.pacientes.get(idx);
+    }
+    
+    public int getIndexPacienteByCedula (String cedula) {
+        int index = -1;
+        for (int i = 0; i < this.pacientes.size(); i++) {
+                Paciente e = this.pacientes.get(i);
+                if (e.getCedula().equals(cedula)) {
+                        index = i;
+                        break; // Terminar ciclo
+                }
+        }
+        return index;
+    }
+    
     public int getPacientesSize() {
         int size = this.pacientes.size();
         return size;

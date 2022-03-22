@@ -12,10 +12,10 @@ import org.json.simple.JSONArray;
  * @author Windows 10
  */
 public class Paciente {
-    private String cedula;
-    private String nombre;
-    private ArrayList<Cita> citas = new ArrayList<>();
-    private ArrayList<Historia> historial = new ArrayList<>();
+    String cedula;
+    String nombre;
+    ArrayList<Cita> citas = new ArrayList<>();
+    ArrayList<Historia> historial = new ArrayList<>();
 /*public void addAvailableAppointment(String date, String time){
     availableAppointments.add(new Doctor.AvailableAppointment(date,time));
     }*/
@@ -84,9 +84,26 @@ public class Paciente {
     public ArrayList<Historia> getHistorial() {
         return historial;
     }
+    
+    public ArrayList<Cita> getCitasSearch(String search) {
+        ArrayList<Cita> found = new ArrayList<>();
+        for (Cita cita: this.citas) {
+            if(cita.getId().matches(".*"+ search +".*")
+               || cita.getMedico().matches(".*"+ search +".*")
+               || cita.getFecha().matches(".*"+ search +".*")
+            ){
+                found.add(cita);
+            }
+        }
+        return found;
+    }
 
     public void setHistorial(ArrayList<Historia> historial) {
         this.historial = historial;
+    }
+
+    void add(Cita newCita) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     

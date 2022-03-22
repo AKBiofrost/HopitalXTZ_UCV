@@ -7,6 +7,7 @@ package pnlDasboard;
 
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import model.Cita;
 import model.Data;
 import model.Paciente;
 import model.Sucursal;
@@ -15,24 +16,26 @@ import model.Sucursal;
  *
  * @author Administrador
  */
-public class CitasGestionar extends javax.swing.JFrame {
+public class CitasPaciente extends javax.swing.JFrame {
     Data dataXYZ = Data.getInstance();
-    Sucursal sucursal;
+    Sucursal sucursal;    
+    Paciente paciente;
     
-    public CitasGestionar(String sucursalName) {
+    public CitasPaciente(String cedula, String sucursalName) {
         initComponents();
         sucursal = dataXYZ.getSucursalByNombre(sucursalName);
-        labelTitle.setText("Citas - Pacientes");
+        labelTitle.setText("Citas - " + cedula );
         labelSesion.setText("Sesión: " + sucursal.getNombre());
         
         if(sucursal.getPacientes().isEmpty()){
             showMessage("No Hay pacientes, dirijase \n al modulo de Registro de Pacientes.");
         }else{
-            showTable(sucursal.getPacientes());
+            paciente = sucursal.getPacienteByCedula(cedula);
+            showTable(paciente.getCitas());
         }
     }
 
-    private CitasGestionar() {
+    private CitasPaciente() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
@@ -42,24 +45,25 @@ public class CitasGestionar extends javax.swing.JFrame {
         msgPacientes.setText(msg);
     }
     
-    private void showTable(ArrayList<Paciente> lista){
+    private void showTable(ArrayList<Cita> lista){
         tablePacientesPanel.setVisible(true);
         msgPacientesPanel.setVisible(false);
-        int cols = 2;
+        int cols = 3;
         int rows = lista.size();
-        labelTitle.setText("Citas - Pacientes (" + rows + ")");
+        labelTitle.setText("Citas - " + paciente.getCedula() + "(" + rows + ")");
 
         String matriz[][] = new String[rows][cols];
         for(int i = 0; i < rows; i++){
-            matriz[i][0] = lista.get(i).getCedula();
-            matriz[i][1] = lista.get(i).getNombre();
+            matriz[i][0] = lista.get(i).getId();
+            matriz[i][1] = lista.get(i).getMedico();
+            matriz[i][2] = lista.get(i).getFecha();
         }
         
-        String[] cabecera = new String[]{"Cédula", "Nombre"};
+        String[] cabecera = new String[]{"Id", "Medico", "Fecha"};
         DefaultTableModel model = new DefaultTableModel(matriz,cabecera);
         tablePacientes.setModel(model);
         
-        int[] anchos = new int[]{100, 300};
+        int[] anchos = new int[]{100, 200, 200};
         for(int i=0; i<cols ;i++){
             tablePacientes.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
@@ -98,7 +102,7 @@ public class CitasGestionar extends javax.swing.JFrame {
         labelTitle.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         labelTitle.setForeground(new java.awt.Color(255, 255, 255));
         labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelTitle.setText("Citas - Pacientes");
+        labelTitle.setText("Citas - [Paciente]");
 
         rSButtonMetro5.setBackground(new java.awt.Color(255, 80, 80));
         rSButtonMetro5.setText("<");
@@ -161,7 +165,7 @@ public class CitasGestionar extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Nombre:");
+        jLabel3.setText("Busqueda:");
 
         btnFilter.setText("Filtrar");
         btnFilter.addActionListener(new java.awt.event.ActionListener() {
@@ -195,9 +199,9 @@ public class CitasGestionar extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(102, 102, 102)
+                                .addGap(96, 96, 96)
                                 .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(inputSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(57, 57, 57)
                                 .addComponent(btnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -258,13 +262,13 @@ public class CitasGestionar extends javax.swing.JFrame {
     private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
         String search = inputSearch.getText();
         if("".equals(search)){
-            showTable(sucursal.getPacientes());
+            showTable(paciente.getCitas());
             return;
         }
         
-        ArrayList<Paciente> found = sucursal.getPacientesSearch(search);        
+        ArrayList<Cita> found = paciente.getCitasSearch(search);        
         if(found.isEmpty()){
-            showMessage("No Se encontraron pacientes con lo buscando. \n" 
+            showMessage("No Se encontraron citas con lo buscando. \n" 
                     + "Su búsqueda: " + search);
         }else showTable(found);
         inputSearch.setText("");        
@@ -275,7 +279,7 @@ public class CitasGestionar extends javax.swing.JFrame {
     }//GEN-LAST:event_inputSearchActionPerformed
 
     private void rSButtonMetro5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro5ActionPerformed
-        SecretariaSubMain wSecS = new SecretariaSubMain(sucursal.getNombre());
+        CitasPacientes wSecS = new CitasPacientes(sucursal.getNombre());
         this.dispose();
         wSecS.setVisible(true);
     }//GEN-LAST:event_rSButtonMetro5ActionPerformed
@@ -305,14 +309,62 @@ public class CitasGestionar extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CitasGestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CitasPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CitasGestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CitasPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CitasGestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CitasPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CitasGestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CitasPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -333,7 +385,7 @@ public class CitasGestionar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CitasGestionar().setVisible(true);
+                new CitasPaciente().setVisible(true);
             }
         });
     }

@@ -20,9 +20,6 @@ public class PacientesRegistrar extends javax.swing.JFrame {
         initComponents();
         sucursal = dataXYZ.getSucursalByNombre(sucursalName);
         
-        for(Sucursal suc: dataXYZ.getSucursales()){
-            inputSucursal.addItem(suc.getNombre());            
-        }
     }
 
     private PacientesRegistrar() {
@@ -30,8 +27,8 @@ public class PacientesRegistrar extends javax.swing.JFrame {
     }
     
     private void showMessage(String msg){
-        msgRegistarMedicoPanel.setVisible(true);
-        msgRegistarMedico.setText(msg);
+        msgRegistarPacientePanel.setVisible(true);
+        msgRegistarPaciente.setText(msg);
     }
 
     /**
@@ -48,19 +45,13 @@ public class PacientesRegistrar extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         rSButtonMetro5 = new rsbuttom.RSButtonMetro();
         jPanel2 = new javax.swing.JPanel();
-        inputId = new javax.swing.JTextField();
+        inputCedula = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         inputNombre = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        inputApellido = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        inputEspecialidad = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        inputSucursal = new javax.swing.JComboBox<>();
         btnRegistrar = new rsbuttom.RSButtonMetro();
-        msgRegistarMedicoPanel = new javax.swing.JScrollPane();
-        msgRegistarMedico = new javax.swing.JTextArea();
+        msgRegistarPacientePanel = new javax.swing.JScrollPane();
+        msgRegistarPaciente = new javax.swing.JTextArea();
 
         rSButtonMetro2.setBackground(new java.awt.Color(255, 80, 80));
         rSButtonMetro2.setText("<");
@@ -90,51 +81,25 @@ public class PacientesRegistrar extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(26, 207, 172));
         jPanel2.setPreferredSize(new java.awt.Dimension(857, 513));
 
-        inputId.addActionListener(new java.awt.event.ActionListener() {
+        inputCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputIdActionPerformed(evt);
+                inputCedulaActionPerformed(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("ID medico");
+        jLabel3.setText("Cédula:");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Nombre");
+        jLabel5.setText("Nombre:");
 
         inputNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputNombreActionPerformed(evt);
             }
         });
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Apellido");
-
-        inputApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputApellidoActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Sucursal");
-
-        inputEspecialidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputEspecialidadActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Especialidad");
-
-        inputSucursal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -143,62 +108,40 @@ public class PacientesRegistrar extends javax.swing.JFrame {
             }
         });
 
-        msgRegistarMedicoPanel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        msgRegistarMedicoPanel.setHorizontalScrollBar(null);
+        msgRegistarPacientePanel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        msgRegistarPacientePanel.setHorizontalScrollBar(null);
 
-        msgRegistarMedico.setEditable(false);
-        msgRegistarMedico.setBackground(new java.awt.Color(26, 207, 172));
-        msgRegistarMedico.setColumns(20);
-        msgRegistarMedico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        msgRegistarMedico.setRows(2);
-        msgRegistarMedico.setTabSize(10);
-        msgRegistarMedicoPanel.setViewportView(msgRegistarMedico);
+        msgRegistarPaciente.setEditable(false);
+        msgRegistarPaciente.setBackground(new java.awt.Color(26, 207, 172));
+        msgRegistarPaciente.setColumns(20);
+        msgRegistarPaciente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        msgRegistarPaciente.setRows(2);
+        msgRegistarPaciente.setTabSize(10);
+        msgRegistarPacientePanel.setViewportView(msgRegistarPaciente);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(79, 79, 79)
-                                .addComponent(jLabel3))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(92, 92, 92)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(inputId, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(inputApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                .addGap(92, 92, 92)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(19, 19, 19)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(inputEspecialidad)
-                            .addComponent(inputSucursal, 0, 338, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(inputCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(64, 64, 64))
+            .addComponent(msgRegistarPacientePanel, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(msgRegistarMedicoPanel)
-                .addContainerGap())
+                .addGap(212, 212, 212)
+                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,27 +149,16 @@ public class PacientesRegistrar extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(inputId, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
+                    .addComponent(inputCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(inputApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(inputSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(msgRegistarMedicoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(29, 29, 29)
+                .addComponent(msgRegistarPacientePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(105, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -237,7 +169,7 @@ public class PacientesRegistrar extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(rSButtonMetro5, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
+                .addGap(54, 54, 54)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -277,39 +209,32 @@ public class PacientesRegistrar extends javax.swing.JFrame {
         wSecS.setVisible(true);
     }//GEN-LAST:event_rSButtonMetro5ActionPerformed
 
-    private void inputIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputIdActionPerformed
+    private void inputCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputCedulaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_inputIdActionPerformed
+    }//GEN-LAST:event_inputCedulaActionPerformed
 
     private void inputNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputNombreActionPerformed
 
-    private void inputApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputApellidoActionPerformed
-
-    private void inputEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputEspecialidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputEspecialidadActionPerformed
-
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        String id = inputId.getText();
+        String cedula = inputCedula.getText();
         String nombre = inputNombre.getText();
-        String apellido = inputApellido.getText();
-        String especialidad = inputEspecialidad.getText();
-        String sucursal = inputSucursal.getSelectedItem().toString();
-        boolean created = dataXYZ.insertMedico(id, nombre, apellido, especialidad, sucursal);
         
-    
-        if(!created) showMessage("No se creó el médico, verifique que el Id no existe \n y verifique que haya ingresado todos los campos.");
-        else {
-            showMessage("El médico " + nombre + " fue creado Exitosamente");
-            inputId.setText("");
-            inputNombre.setText("");
-            inputApellido.setText("");
-            inputEspecialidad.setText("");
-        } 
+        if("".equals(cedula) || cedula == null
+          || "".equals(nombre) || nombre == null
+        ){
+            showMessage("Todos los campos son obligatorios, por favor revise.");
+        }else{
+            boolean created = dataXYZ.insertPaciente(sucursal.getNombre(), cedula, nombre);       
+
+            if(!created) showMessage("No se creó el paciente, verifique que la Cedula no existe \n y verifique que haya ingresado todos los campos.");
+            else {
+                showMessage("El paciente " + nombre + " fue creado Exitosamente");
+                inputCedula.setText("");
+                inputNombre.setText("");
+            } 
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
@@ -351,24 +276,7 @@ public class PacientesRegistrar extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -380,21 +288,15 @@ public class PacientesRegistrar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnRegistrar;
-    private javax.swing.JTextField inputApellido;
-    private javax.swing.JTextField inputEspecialidad;
-    private javax.swing.JTextField inputId;
+    private javax.swing.JTextField inputCedula;
     private javax.swing.JTextField inputNombre;
-    private javax.swing.JComboBox<String> inputSucursal;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextArea msgRegistarMedico;
-    private javax.swing.JScrollPane msgRegistarMedicoPanel;
+    private javax.swing.JTextArea msgRegistarPaciente;
+    private javax.swing.JScrollPane msgRegistarPacientePanel;
     private rsbuttom.RSButtonMetro rSButtonMetro2;
     private rsbuttom.RSButtonMetro rSButtonMetro5;
     // End of variables declaration//GEN-END:variables

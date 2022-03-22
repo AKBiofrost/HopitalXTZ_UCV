@@ -158,17 +158,17 @@ public class SecretariaSubMain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
-        CitasGestionar wCitaG = new CitasGestionar(sucursal.getNombre());
-        this.dispose();
-        wCitaG.setVisible(true);
-    }//GEN-LAST:event_rSButtonMetro1ActionPerformed
-
     private void rSButtonMetro4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro4ActionPerformed
         CitasRegistrar wCitaR = new CitasRegistrar(sucursal.getNombre());
         this.dispose();
         wCitaR.setVisible(true);
     }//GEN-LAST:event_rSButtonMetro4ActionPerformed
+
+    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
+        SecretariaMain wSecM = new SecretariaMain();
+        this.dispose();
+        wSecM.setVisible(true);
+    }//GEN-LAST:event_btnReturnActionPerformed
 
     private void rSButtonMetro2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro2ActionPerformed
         PacientesRegistrar wPacienteR = new PacientesRegistrar(sucursal.getNombre());
@@ -176,11 +176,11 @@ public class SecretariaSubMain extends javax.swing.JFrame {
         wPacienteR.setVisible(true);
     }//GEN-LAST:event_rSButtonMetro2ActionPerformed
 
-    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        SecretariaMain wSecM = new SecretariaMain();
+    private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
+        CitasPacientes wCitaG = new CitasPacientes(sucursal.getNombre());
         this.dispose();
-        wSecM.setVisible(true);
-    }//GEN-LAST:event_btnReturnActionPerformed
+        wCitaG.setVisible(true);
+    }//GEN-LAST:event_rSButtonMetro1ActionPerformed
 
     /**
      * @param args the command line arguments
